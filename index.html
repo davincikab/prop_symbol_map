@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset='utf-8' />
+  <title></title>
+  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
+  <script src="https://api.mapbox.com/mapbox-gl-js/v1.9.1/mapbox-gl.js"></script>
+  <link href="https://api.mapbox.com/mapbox-gl-js/v1.9.1/mapbox-gl.css" rel="stylesheet" />
+  <script src='https://npmcdn.com/csv2geojson@latest/csv2geojson.js'></script>
+  <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
+
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" 
+      integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+</head>
+<style>
+    body {
+        margin:0;
+    }
+    .map {
+        height: 100vh;
+        width: 100%;
+    }
+
+</style>
+<body>
+  <main class="main-container">
+    <div id="map" class="map"></div>
+  </main>
+
+  <div class="snackbar"></div>
+  <div class="spinner-modal">
+    <div class="spinner-backdrop">
+      <!-- gif -->
+    </div>
+    <div class="spinning-box"></div>
+    <p class="spinner-status">Loading data ....</p>
+  </div>
+  
+  <!-- <script class=""></script> -->
+  <script async src="main.js"></script>
+  
+</body>
+
+</html>
