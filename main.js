@@ -11,7 +11,7 @@ var colorPicker = document.getElementById('color-picker');
 map.on('load', function(e) {
     map.addSource('csvData', {
         type: 'geojson',
-        data: '/data.geojson',
+        data: 'data.geojson',
         // cluster:true,
         // clusterMaxZoom:14,
         // clusterRadius:50
