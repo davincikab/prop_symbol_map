@@ -99,15 +99,15 @@ function makeGeoJSON(csvData) {
             element.properties.Keys = parseInt(element.properties.Keys);
         });
           let geocodedData = geocodeAddress(data);
-          map.getSource('csvData').setData(geocodedData);
+        //   map.getSource('csvData').setData(geocodedData);
       }
     );
 }
 
 // geocode the data
-function geocodeAddress(data) {
-    var itemsCount = data.features.length - 1;
-    data.features = data.features.map((feature,i) => {
+function geocodeAddress(dataItems) {
+    var itemsCount = dataItems.features.length - 1;
+    dataItems.features = dataItems.features.map((feature,i) => {
         let url = 'https://api.mapbox.com/geocoding/v5/mapbox.places/'+feature.properties.City+' '+ feature.properties.Country+'.json?&access_token='+mapboxgl.accessToken;
         
         console.log(url);
@@ -120,6 +120,13 @@ function geocodeAddress(data) {
                 } else {
                     feature.geometry.coordinates = data.features[0].geometry.coordinates;
                 }
+
+                if(i == itemsCount) {
+                    console.log("Complete");
+                    console.log(dataItems);
+
+                    map.getSource('csvData').setData(dataItems);
+                }
             })
             .catch(error => {
                 console.log(error);
@@ -128,6 +135,8 @@ function geocodeAddress(data) {
             return feature;
     });
 
-    return data;
+    console.log(dataItems);
+    return dataItems;
     
 }
+
