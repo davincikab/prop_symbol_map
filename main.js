@@ -8,10 +8,11 @@ var map = new mapboxgl.Map({
 
 var colorPicker = document.getElementById('color-picker');
 
+var object
 map.on('load', function(e) {
     map.addSource('csvData', {
         type: 'geojson',
-        data: 'data.geojson',
+        data: {"type":"FeatureCollection","features":[]}
         // cluster:true,
         // clusterMaxZoom:14,
         // clusterRadius:50
@@ -24,7 +25,7 @@ map.on('load', function(e) {
         // filter:['has','point_count'],
         paint: {
           'circle-color': "#00d8f5",
-          'circle-radius': ["get", "Count"],
+          'circle-radius': ["get", "Keys"],
           'circle-opacity':0.8
         }
         
@@ -43,8 +44,8 @@ map.on('load', function(e) {
         let feature = features[0];
 
         // create a popupContent
-        var description = "<div class='popup-container'><h3>" + feature.properties.NAME + "</h3>" + 
-                        "<h4>" + "<b>" + "Hubs" + "</b>" + feature.properties.Count + "</h4> </div>";
+        var description = "<div class='popup-container'><h3>" + feature.properties.Name + "</h3>" + 
+                        "<h4>" + "<b>" + "Hubs" + "</b>" + feature.properties.Keys + "</h4> </div>";
         
         let coord = feature.geometry.coordinates;
         new mapboxgl.Popup()
@@ -66,6 +67,67 @@ map.on('load', function(e) {
     // update the color
     colorPicker.addEventListener('input', function(e) {
         map.setPaintProperty('csvData', 'circle-color', e.target.value);
-    })
+    });
+
+    fetchData();
 
 });
+
+// fetch the data from googlsheets
+function fetchData() {
+    $.ajax({
+        type: "GET",
+        //YOUR TURN: Replace with csv export link
+        url:'https://docs.google.com/spreadsheets/d/e/2PACX-1vTqoC347N4Ds1G9pdGyWEIWyLG3u05K9CeLD8KkAU9xOZUh895yZDH1PN64Ad8bJ3gCpSljICJ_h7Df/pub?output=csv',
+        dataType: "text",
+        success: function (csvData) { makeGeoJSON(csvData); },
+        error:function(error) { console.log(error) }
+    });
+}
+
+function makeGeoJSON(csvData) {
+
+    csv2geojson.csv2geojson(csvData, {
+        latfield: 'lat',
+        lonfield: 'lng',
+        delimiter: ','
+      }, function (err, data) {
+          console.log(data);
+        
+        //   update keys to integer
+        data.features.forEach(element => {
+            element.properties.Keys = parseInt(element.properties.Keys);
+        });
+          let geocodedData = geocodeAddress(data);
+          map.getSource('csvData').setData(geocodedData);
+      }
+    );
+}
+
+// geocode the data
+function geocodeAddress(data) {
+    var itemsCount = data.features.length - 1;
+    data.features = data.features.map((feature,i) => {
+        let url = 'https://api.mapbox.com/geocoding/v5/mapbox.places/'+feature.properties.City+' '+ feature.properties.Country+'.json?&access_token='+mapboxgl.accessToken;
+        
+        console.log(url);
+        fetch(url)
+            .then(res => res.json())
+            .then(data => {
+                // console.log(data);
+                if(data.features.length == 0) {
+                    // return feature;
+                } else {
+                    feature.geometry.coordinates = data.features[0].geometry.coordinates;
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            });
+
+            return feature;
+    });
+
+    return data;
+    
+}
