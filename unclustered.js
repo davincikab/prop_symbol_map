@@ -13,47 +13,8 @@ map.on('load', function(e) {
     map.addSource('csvData', {
         type: 'geojson',
         data: {"type":"FeatureCollection","features":[]},
-        cluster:true,
-        clusterMaxZoom:14,
-        clusterRadius:50
       });
-    
-    // clustered
-        // clustered a
-    map.addLayer({
-        id: 'clusterData',
-        type: 'circle',
-        source:'csvData',
-        filter:['has','point_count'],
-        paint: {
-          'circle-color': "#61F4C0",
-          'circle-radius': [
-            'step',
-            ['get', 'point_count'],
-            20,
-            100,
-            30,
-            750,
-            40
-        ],
-          'circle-opacity':0.8
-        }
-        
-    });
-
-    // text
-    map.addLayer({
-        id: 'cluster-count',
-        type: 'symbol',
-        source: 'csvData',
-        filter: ['has', 'point_count'],
-        layout: {
-            'text-field': '{point_count_abbreviated}',
-            'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
-            'text-size': 12
-        }
-    });
-
+ 
     // unclustered layer
     map.addLayer({
         id: 'csvData',
@@ -61,7 +22,7 @@ map.on('load', function(e) {
         source:'csvData',
         filter: ['!', ['has', 'point_count']],
         paint: {
-          'circle-color': "#2ACCD6",
+          'circle-color': "#00d8f5",
           'circle-radius': ['interpolate', 
                     ['linear'],
                     ["get", "Keys"],
@@ -79,27 +40,19 @@ map.on('load', function(e) {
         }
         
     });
-
-    // uncluster on click
-    // inspect a cluster on click
-    map.on('click', 'clusterData', function(e) {
-        var features = map.queryRenderedFeatures(e.point, {
-            layers: ['clusterData']
-        });
-
-        var clusterId = features[0].properties.cluster_id;
-        map.getSource('csvData').getClusterExpansionZoom(
-            clusterId,
-            function(err, zoom) {
-                if (err) return;
-            
-                map.easeTo({
-                    center: features[0].geometry.coordinates,
-                    zoom: zoom
-                });
-            }
-        );
-    });
+    
+    // text
+    // map.addLayer({
+    //     id: 'cluster-count',
+    //     type: 'symbol',
+    //     source: 'csvData',
+    //     // filter: ['has', 'point_count'],
+    //     layout: {
+    //         'text-field': '{Keys}',
+    //         'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
+    //         'text-size': 12
+    //     }
+    // });
 
     // add popup layer
     map.on('click', 'csvData', function(e) {
@@ -178,8 +131,7 @@ function geocodeAddress(dataItems) {
     var itemsCount = dataItems.features.length - 1;
     dataItems.features = dataItems.features.map((feature,i) => {
         let url = 'https://api.mapbox.com/geocoding/v5/mapbox.places/'+feature.properties.City+' '+ feature.properties.Country+'.json?&access_token='+mapboxgl.accessToken;
-        
-        console.log(url);
+      
         fetch(url)
             .then(res => res.json())
             .then(data => {
