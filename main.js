@@ -1,10 +1,11 @@
-mapboxgl.accessToken = 'pk.eyJ1IjoiaW9zZXJ2aWNlZGVzayIsImEiOiJjanZvaXVhejkxdDh5NDhwYmxqbzE0MmZqIn0.-wFzMVbZTxRePP3py2QbXA'; //Mapbox token 
+mapboxgl.accessToken = 'pk.eyJ1IjoiZGF1ZGk5NyIsImEiOiJjanJtY3B1bjYwZ3F2NGFvOXZ1a29iMmp6In0.9ZdvuGInodgDk7cv-KlujA'; //Mapbox token 
 var map = new mapboxgl.Map({
     container: 'map', // container id
-    style: 'mapbox://styles/ioservicedesk/cjyfq2zsf56wl1ds8p1hc6xb2', //stylesheet location
+    style: 'mapbox://styles/daudi97/ckcyd36dz1neo1ikdd63oacbu', //stylesheet location
     center: [9.351904112498005, 28.82253746715162], // starting position
     zoom: 1.67,// starting zoom
 });
+
 
 var colorPicker = document.getElementById('color-picker');
 
@@ -36,7 +37,7 @@ map.on('load', function(e) {
             750,
             40
         ],
-          'circle-opacity':0.8
+          'circle-opacity':0.7
         }
         
     });
@@ -49,8 +50,8 @@ map.on('load', function(e) {
         filter: ['has', 'point_count'],
         layout: {
             'text-field': '{point_count_abbreviated}',
-            'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
-            'text-size': 12
+            'text-font': ["Nunito Bold", "Arial Unicode MS Regular"],
+            'text-size': 11
         }
     });
 
@@ -75,7 +76,7 @@ map.on('load', function(e) {
                     12
                 ],
         //   'circle-radius':6,
-          'circle-opacity':0.8
+          'circle-opacity':0.7
         }
         
     });
@@ -86,13 +87,14 @@ map.on('load', function(e) {
         source: 'csvData',
         filter: ['!', ['has', 'point_count']],
         paint:{
-            'text-halo-color':'#fff',
-            'text-halo-width':2,
+            // 'text-halo-color':'#fff',
+            // 'text-halo-width':2,
+            'text-color':'#fff'
         },
         layout: {
             'text-field': '{City}',
-            'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
-            'text-variable-anchor': ['top', 'bottom', 'left', 'right'],
+            'text-font': ["Nunito Bold Italic", "Arial Unicode MS Regular"],
+            'text-variable-anchor':['top', 'right'],
             'text-radial-offset': 0.65,
             'text-size': 12,
             // 'text-offset':[2, 0]
