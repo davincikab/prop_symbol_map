@@ -80,6 +80,24 @@ map.on('load', function(e) {
         
     });
 
+    map.addLayer({
+        id: 'cluster-labels',
+        type: 'symbol',
+        source: 'csvData',
+        filter: ['!', ['has', 'point_count']],
+        paint:{
+            'text-halo-color':'#fff',
+            'text-halo-width':2,
+        },
+        layout: {
+            'text-field': '{City}',
+            'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
+            'text-variable-anchor': ['top', 'bottom', 'left', 'right'],
+            'text-radial-offset': 0.65,
+            'text-size': 12,
+            // 'text-offset':[2, 0]
+        }
+    });
     // uncluster on click
     // inspect a cluster on click
     map.on('click', 'clusterData', function(e) {

@@ -22,7 +22,7 @@ map.on('load', function(e) {
         source:'csvData',
         filter: ['!', ['has', 'point_count']],
         paint: {
-          'circle-color': "#00d8f5",
+          'circle-color': "#11BAE0",
           'circle-radius': ['interpolate', 
                     ['linear'],
                     ["get", "Keys"],
@@ -36,23 +36,31 @@ map.on('load', function(e) {
                     12
                 ],
         //   'circle-radius':6,
-          'circle-opacity':0.8
+          'circle-opacity':0.9
         }
         
     });
     
     // text
-    // map.addLayer({
-    //     id: 'cluster-count',
-    //     type: 'symbol',
-    //     source: 'csvData',
-    //     // filter: ['has', 'point_count'],
-    //     layout: {
-    //         'text-field': '{Keys}',
-    //         'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
-    //         'text-size': 12
-    //     }
-    // });
+
+    map.addLayer({
+        id: 'cluster-labels',
+        type: 'symbol',
+        source: 'csvData',
+        filter: ['!', ['has', 'point_count']],
+        paint:{
+            'text-halo-color':'#fff',
+            'text-halo-width':1.3,
+        },
+        layout: {
+            'text-field': '{City}',
+            'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
+            'text-variable-anchor': ['top', 'bottom', 'left', 'right'],
+            'text-radial-offset': 0.65,
+            'text-size': 10,
+            // 'text-offset':[2, 0]
+        }
+    });
 
     // add popup layer
     map.on('click', 'csvData', function(e) {
