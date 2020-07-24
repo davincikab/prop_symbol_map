@@ -8,7 +8,11 @@ var map = new mapboxgl.Map({
 
 var colorPicker = document.getElementById('color-picker');
 
-var object
+// colors
+var harmonyBlue =  '#00AEE9';
+var harmonyGreen = '#69FABD';
+
+var object;
 map.on('load', function(e) {
     map.addSource('csvData', {
         type: 'geojson',
@@ -22,7 +26,13 @@ map.on('load', function(e) {
         source:'csvData',
         filter: ['!', ['has', 'point_count']],
         paint: {
-          'circle-color': "#61F4C0",
+          'circle-color': [
+              "match",
+              ["get", "Shared"],
+              "FALSE",
+              harmonyGreen,
+              harmonyBlue
+          ],
           'circle-radius': ['interpolate', 
                     ['linear'],
                     ["get", "Keys"],
@@ -102,6 +112,28 @@ map.on('load', function(e) {
 
 });
 
+class LegendControl {
+    onAdd(map) {
+        this._map = map;
+        this._container = document.createElement('div');
+        this._container.className = 'mapboxgl-ctrl';
+
+        var content = "<div class='legend'><div class='icon icon-green'></div> nonShared Node"+
+                    "<div class='icon icon-blue'></div> Shared Node</div>"
+        this._container.innerHTML = content;
+        return this._container;
+    }
+     
+    onRemove() {
+        this._container.parentNode.removeChild(this._container);
+        this._map = undefined;
+    }
+}
+
+map.addControl(
+    new LegendControl(),
+    'bottom-right'
+);
 // fetch the data from googlsheets
 function fetchData() {
     $.ajax({
