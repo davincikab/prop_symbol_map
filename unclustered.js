@@ -1,8 +1,8 @@
 mapboxgl.accessToken = 'pk.eyJ1IjoiZGF1ZGk5NyIsImEiOiJjanJtY3B1bjYwZ3F2NGFvOXZ1a29iMmp6In0.9ZdvuGInodgDk7cv-KlujA'; //Mapbox token 
 var map = new mapboxgl.Map({
     container: 'map', // container id
-    // style: 'mapbox://styles/daudi97/ckcyd36dz1neo1ikdd63oacbu', //stylesheet location
-    style:'mapbox://styles/daudi97/ckd0mluv8166l1ilim6zkg2h4',
+    style: 'mapbox://styles/daudi97/ckcyd36dz1neo1ikdd63oacbu', //stylesheet location
+    // style:'mapbox://styles/daudi97/ckd0mluv8166l1ilim6zkg2h4',
     center: [9.351904112498005, 28.82253746715162], // starting position
     zoom: 1.67,// starting zoom
 });
