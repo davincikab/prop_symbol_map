@@ -119,8 +119,8 @@ class LegendControl {
         this._container = document.createElement('div');
         this._container.className = 'mapboxgl-ctrl';
 
-        var content = "<div class='legend'><div class='icon icon-green'></div> nonShared Node"+
-                    "<div class='icon icon-blue'></div> Shared Node</div>"
+        var content = "<div class='legend'><div class='icon icon-green'></div> Individual validator"+
+                    "<div class='icon icon-blue'></div> Collaborative validator</div>"
         this._container.innerHTML = content;
         return this._container;
     }
