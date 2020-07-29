@@ -171,13 +171,18 @@ function geocodeAddress(dataItems) {
     var itemsCount = dataItems.features.length - 1;
     dataItems.features = dataItems.features.map((feature,i) => {
         let url = 'https://api.mapbox.com/geocoding/v5/mapbox.places/'+feature.properties.City+' '+ feature.properties.Country+'.json?&access_token='+mapboxgl.accessToken;
-      
+        
+        if(feature.geometry.coordinates[0] != 0 && feature.geometry.coordinates[1] != 0) {
+            return feature;
+        }
+
         fetch(url)
             .then(res => res.json())
             .then(data => {
                 // console.log(data);
                 if(data.features.length == 0) {
                     // return feature;
+                    console.log(feature);
                 } else {
                     feature.geometry.coordinates = data.features[0].geometry.coordinates;
                 }
