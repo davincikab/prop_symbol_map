@@ -84,8 +84,8 @@ map.on('load', function(e) {
         let feature = features[0];
 
         // create a popupContent
-        var description = "<div class='popup-container'><h3>" + feature.properties.Name + "</h3>" + 
-                        "<h4>" + "<b>" + "Hubs" + "</b>" + feature.properties.Keys + "</h4> </div>";
+        var description = "<div class='popup-container'><h3>Hubs</h3>" + 
+                        "<h4>" + feature.properties.Keys + "</h4> </div>";
         
         let coord = feature.geometry.coordinates;
         new mapboxgl.Popup()
