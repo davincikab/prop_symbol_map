@@ -92,7 +92,7 @@ map.on('load', function(e) {
         var description = "<div class='popup-content'>"+
                         "<h4 class='title-section'>" + feature.properties.Keys + "</h4>" +
                         "<img class='img-center' src='marker.jpg'></div>"+
-                        "<img src='white.svg'></div>";
+                        "<img class='logo-img' src='white.svg'></div>";
 
         let coord = feature.geometry.coordinates;
         new mapboxgl.Popup()
