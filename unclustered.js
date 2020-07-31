@@ -39,12 +39,14 @@ map.on('load', function(e) {
                     ["get", "Keys"],
                     0,
                     5,
-                    5,
-                    7,
-                    10,
-                    10,
-                    20,
-                    12
+                    // 5,
+                    // 7,
+                    // 10,
+                    // 10,
+                    // 20,
+                    // 12,
+                    50,
+                    40
                 ],
         //   'circle-radius':6,
           'circle-opacity':0.7
@@ -84,9 +86,13 @@ map.on('load', function(e) {
         let feature = features[0];
 
         // create a popupContent
-        var description = "<div class='popup-container'><h3>Hubs</h3>" + 
-                        "<h4>" + feature.properties.Keys + "</h4> </div>";
+        // var description = "<div class='popup-container'><h3>Hubs</h3>" + 
+        //                 "<h4>" + feature.properties.Keys + "</h4> </div>";
         
+        var description = "<div class='popup-content'>"+
+                        "<h4>" + feature.properties.Keys + "</h4>" +
+                            "<img src='white.svg'></div>";
+
         let coord = feature.geometry.coordinates;
         new mapboxgl.Popup()
             .setLngLat(coord)

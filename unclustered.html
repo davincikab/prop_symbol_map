@@ -36,12 +36,16 @@
   .mapboxgl-map .mapboxgl-popup-content {
     font: 400 15px/22px 'Source Sans Pro', 'Helvetica Neue', Sans-serif;
     padding: 0;
-    width: 250px;
+    width: 150px;
     overflow: hidden;
+    background-color: #2e2e2e;
   }
 
   .mapboxgl-popup-content h4 {
-      font-size: 0.8rem;
+      font-size: 1.8rem;
+      font-weight: 900;
+      color:white;
+      margin:0.2em;
   }
 
   .mapboxgl-popup-content h4 > b{
@@ -68,23 +72,21 @@
     margin-top: -5px;
   }
 
-  .mapboxgl-popup-content h4 {
-    margin: 0;
-    display: block;
-    padding: 10px 3px 10px 10px;
-    font-weight: 400;
-  }
 
   .mapboxgl-container {
     cursor: pointer;
   }
 
-  .mapboxgl-popup-anchor-top>.mapboxgl-popup-content {
+  .mapboxgl-popup-anchor-top > .mapboxgl-popup-content {
     margin-top: 3px;
   }
 
-  .mapboxgl-popup-anchor-top>.mapboxgl-popup-tip {
-    border-bottom-color: rgb(61, 59, 59);
+  .mapboxgl-popup-anchor-top > .mapboxgl-popup-tip {
+    border-bottom-color: rgb(61, 59, 59) !important;
+  }
+
+  .mapboxgl-popup-anchor-bottom > .mapboxgl-popup-tip {
+    border-bottom-color: rgb(61, 59, 59) !important;
   }
 
   /* Multiple popups */
@@ -142,6 +144,16 @@
   .icon-blue {
     margin-left:1em;
     background-color:#00AEE9;
+  }
+
+
+  /* custom marker */
+  .popup-content {
+    display: block;
+    background-color: #6b6b6b;
+    max-width: 150px;
+    padding: 20px 10px 5px;
+    text-align: center;
   }
 </style>
 <body>
